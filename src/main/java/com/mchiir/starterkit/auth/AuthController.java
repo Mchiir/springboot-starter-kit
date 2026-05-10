@@ -20,11 +20,15 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<UserDto> register(@Valid @RequestBody CreateUserRequest request) {
-        return ResponseEntity.ok(userService.createUser(request));
+        // allow service to throw DuplicateUserException, etc.
+        UserDto created = userService.createUser(request);
+        return ResponseEntity.status(201).body(created);
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody AuthRequest request) {
-        return ResponseEntity.ok(userService.authenticateUser(request));
+        // AuthService throws InvalidCredentialsException when auth fails
+        AuthResponse resp = userService.authenticateUser(request);
+        return ResponseEntity.ok(resp);
     }
 }

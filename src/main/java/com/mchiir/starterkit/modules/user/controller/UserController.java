@@ -24,11 +24,13 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable UUID id) {
+        // service will throw ResourceNotFoundException when not found
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
+        // service will throw ResourceNotFoundException when not found
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
