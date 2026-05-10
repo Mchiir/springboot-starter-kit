@@ -5,19 +5,18 @@ import com.mchiir.starterkit.modules.user.dto.AuthResponse;
 import com.mchiir.starterkit.modules.user.dto.CreateUserRequest;
 import com.mchiir.starterkit.modules.user.dto.UserDto;
 import com.mchiir.starterkit.modules.user.service.UserService;
-import com.mchiir.starterkit.security.jwt.JwtUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
     private final UserService userService;
-    private final JwtUtil jwtUtil;
 
     @PostMapping("/register")
     public ResponseEntity<UserDto> register(@Valid @RequestBody CreateUserRequest request) {
